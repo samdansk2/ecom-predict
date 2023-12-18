@@ -1,3 +1,6 @@
+# Python program to find all the pairs with given target value
+# Two loops are used to form pairs
+
 arr = [1,3,2,4,5,1,3,2]
 sum = 6
 ab= set()

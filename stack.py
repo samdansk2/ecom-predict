@@ -1,3 +1,4 @@
+# Python program to illustrate stack data structure
 stack=[]
 
 stack.append(1)

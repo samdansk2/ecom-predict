@@ -1,3 +1,6 @@
+# Program to illustrate depth first search algorithm :
+# Used set type for repeated values
+# To represent a graph in python basically we use curly braces and values
 graph = {
   '1':['8','5','2'],
   '8':['6','4','3'],

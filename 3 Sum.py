@@ -1,3 +1,6 @@
+# Given an array of integers, find all triplets in the array that sum up to a given target value.
+# I got to know that at line 18 if sum greater than target sum while traversing will remove that element from subarray
+# also subtracts from sum
 arr=[1,3,2,5,6,4,1,1]
 target_sum= 6
 sum=0

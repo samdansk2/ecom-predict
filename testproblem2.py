@@ -1,3 +1,5 @@
+# Program to find the number of leap years between two given years
+# according to leap year strategy the count is derived 
 year1=int(input("enter year:"))
 year2=int(input("enter year:"))
 count=0

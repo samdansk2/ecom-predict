@@ -1,3 +1,4 @@
+# program to remove all occurences of given value
 def sam(arr, val):
     i = 0
     while i < len(arr):

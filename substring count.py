@@ -1,3 +1,4 @@
+# Given a string with the substring , you have to return count of substring in string 
 def string(str,sub_str):
     count=0
     index = str.find(sub_str)

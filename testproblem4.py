@@ -1,3 +1,4 @@
+# Given an array of integers, find all quadraples in the array that sum up to a given target value
 arr = [3,2,7,6,1,2,5,3,1]
 target_sum = 13
 n = len(arr)

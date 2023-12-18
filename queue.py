@@ -1,3 +1,4 @@
+# program to illustrate queue data structure
 queue=[]
 
 queue.append(1)

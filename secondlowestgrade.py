@@ -1,3 +1,6 @@
+# Given the names and grades for each student in a class of N students, print the names of  
+# students having the second lowest grade.
+# Grades are sorted and compares with second one with each value. 
 n=int(input())
 ab=[]
 grade=[]

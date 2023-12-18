@@ -1,3 +1,5 @@
+# program to find leaders in the array , leader is an element which is greater than average of all its adjacent elements.  
+# traversed through the array , found average and compares this with each element
 arr = [2, 9, 4, 6, 1, 5, 8]
 n = len(arr)
 leaders = []
