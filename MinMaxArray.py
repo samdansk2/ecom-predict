@@ -1,3 +1,4 @@
+# minimum and maximum element in the array
 def minmaxi(arr):
     arr.sort()
     element={"min":arr[0],"max":arr[-1]}
