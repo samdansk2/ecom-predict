@@ -1,4 +1,5 @@
 # Given a string with width , return the all string chunks with the given width. 
+
 def split_string(input_string, width):
 
     chunks = []  

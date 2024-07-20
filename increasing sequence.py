@@ -1,6 +1,6 @@
 # python program to find largest increasing sequence in the array
-arr = [1,3,2,4,6,7,5,4]
 
+arr = [1,3,2,4,6,7,5,4]
 n=len(arr)
 arr1=[]
 arr2=[arr[0]]

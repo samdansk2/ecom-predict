@@ -1,4 +1,6 @@
-# program to illustrate queuequeue=[]
+# program to illustrate queue
+
+queue=[]
 
 queue.append(1)
 queue.append(2)

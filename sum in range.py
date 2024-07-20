@@ -1,7 +1,6 @@
 # Given an array of integers and two integers l and r , find the number of pairs (i, j)  
 # such that the value arr[i]+arr[j] lies between l and r, both inclusive.
-# i got to know that two loops are used to form pairs in the array , stored their sum in variable
-# Compared the sum values according to given inclusive range.
+
 def sam (arr,l,r):
     n=len(arr)
     arr1=[]

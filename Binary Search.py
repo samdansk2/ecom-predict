@@ -1,5 +1,5 @@
 # Program to state binary search algorithm :
-# at line 9 using () is crucial , otherwise value will change.
+
 arr=[7,4,2,9,19,11,14]
 arr.sort()
 start=0

@@ -1,5 +1,5 @@
 # Program to illustrate Breadth first search algorithm :
-# To represent a graph in python basically we use curly braces and values
+
 graph = {
   '5' : ['3','7'],
   '3' : ['2', '4'],
