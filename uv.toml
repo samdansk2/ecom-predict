@@ -1,0 +1,12 @@
+# UV Global Configuration
+# This file configures UV behavior for this workspace
+
+# Configure pip-compatible options
+index-url = "https://pypi.org/simple/"
+# extra-index-url = ["https://download.pytorch.org/whl/cpu"]  # Example for PyTorch CPU
+
+# Control dependency resolution behavior
+prerelease = "disallow"  # Only allow stable releases by default
+
+# Performance settings
+cache-dir = ".uv-cache"
