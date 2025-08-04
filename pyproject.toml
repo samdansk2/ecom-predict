@@ -80,6 +80,11 @@ dsa-analyze = "src.main:main"
 packages = ["src"]
 
 [tool.uv]
+# UV configuration
+index-url = "https://pypi.org/simple/"
+prerelease = "disallow"
+cache-dir = ".uv-cache"
+
 dev-dependencies = [
     "jupyter>=1.0.0",
     "ipykernel>=6.25.0",

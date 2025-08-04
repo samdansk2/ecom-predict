@@ -1,6 +1,6 @@
-# DSA Python Sales Analysis
+# Sales Analysis
 
-This project involves analyzing sales data to extract insights and trends using Data Science Algorithms implemented in Python. The analysis includes data cleaning, visualization, statistical modeling, and machine learning to understand sales performance over time.
+This project involves analyzing sales data to extract insights and trends using Data Science Algorithms implemented with Machine learning. The analysis includes data cleaning, visualization, statistical modeling, and machine learning to understand sales performance over time.
 
 ## Features
 
@@ -31,8 +31,8 @@ This project involves analyzing sales data to extract insights and trends using 
 
 2. **Clone and setup the project**:
    ```bash
-   git clone https://github.com/samdansk2/DSA_in_Python.git
-   cd DSA_in_Python
+   git clone https://github.com/samdansk2/sales-analysis.git
+   cd sales-analysis
    
    # Run the setup script
    # On Windows:
@@ -51,8 +51,8 @@ This project involves analyzing sales data to extract insights and trends using 
 ### Installation with pip (Alternative)
 
 ```bash
-git clone https://github.com/samdansk2/DSA_in_Python.git
-cd DSA_in_Python
+git clone https://github.com/samdansk2/sales-analysis.git
+cd sales-analysis
 
 # Create virtual environment
 python -m venv .venv
@@ -68,13 +68,13 @@ pip install -e ".[dev]"
 
 ```bash
 # Run exploratory data analysis
-uv run dsa-analyze --analysis-type eda
+uv run sales-analyze --analysis-type eda
 
 # Run data preprocessing
-uv run dsa-analyze --analysis-type preprocessing --data-path data/raw/ecommerce_sales.csv
+uv run sales-analyze --analysis-type preprocessing --data-path data/raw/ecommerce_sales.csv
 
 # Run modeling
-uv run dsa-analyze --analysis-type modeling --output-dir results/
+uv run sales-analyze --analysis-type modeling --output-dir results/
 ```
 
 ### Jupyter Notebooks
@@ -152,7 +152,7 @@ uv pip freeze > requirements.txt
 ## Project Structure
 
 ```
-DSA_in_Python/
+sales-analysis/
 ├── pyproject.toml          # Modern Python project configuration
 ├── uv.toml                 # UV workspace configuration
 ├── uv.lock                 # Lock file for reproducible builds
