@@ -36,6 +36,10 @@ dependencies = [
     "plotly>=5.15.0",
     "pyyaml>=6.0",
     "tqdm>=4.65.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0",
+    "pydantic>=2.0.0",
+    "joblib>=1.3.0",
 ]
 
 # Optional dependencies for different use cases
@@ -72,12 +76,9 @@ Homepage = "https://github.com/samdansk2/DSA_in_Python"
 Repository = "https://github.com/samdansk2/DSA_in_Python"
 Issues = "https://github.com/samdansk2/DSA_in_Python/issues"
 
-[project.scripts]
-dsa-analyze = "src.main:main"
-
 # Build configuration for hatchling
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["app"]
 
 [tool.uv]
 # UV configuration
@@ -120,7 +121,7 @@ extend-exclude = '''
 profile = "black"
 multi_line_output = 3
 line_length = 88
-known_first_party = ["src"]
+known_first_party = ["app"]
 
 [tool.mypy]
 python_version = "3.9"
@@ -142,10 +143,10 @@ testpaths = ["tests"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "--cov=src --cov-report=html --cov-report=term-missing"
+addopts = "--cov=app --cov-report=html --cov-report=term-missing"
 
 [tool.coverage.run]
-source = ["src"]
+source = ["app"]
 omit = ["*/tests/*", "*/test_*"]
 
 [tool.coverage.report]

@@ -64,17 +64,14 @@ pip install -e ".[dev]"
 
 ## Usage
 
-### Command Line Interface
+### FastAPI Application
 
 ```bash
-# Run exploratory data analysis
-uv run sales-analyze --analysis-type eda
+# Start the prediction API server
+uv run uvicorn app.api:app --reload
 
-# Run data preprocessing
-uv run sales-analyze --analysis-type preprocessing --data-path data/raw/ecommerce_sales.csv
-
-# Run modeling
-uv run sales-analyze --analysis-type modeling --output-dir results/
+# The API will be available at http://localhost:8000
+# Documentation at http://localhost:8000/docs
 ```
 
 ### Jupyter Notebooks
@@ -84,9 +81,11 @@ uv run sales-analyze --analysis-type modeling --output-dir results/
 uv run jupyter lab
 
 # The notebooks/ directory contains:
-# - EDA.ipynb: Exploratory Data Analysis
 # - data_preprocessing.ipynb: Data cleaning and preparation
-# - data_analysis.ipynb: Advanced analysis and modeling
+# - feature_engineering.ipynb: Feature creation and transformation
+# - text_processing.ipynb: NLP text processing with embeddings
+# - model_training.ipynb: ML model training and selection
+# - ensemble_and_evaluation.ipynb: Model ensemble and evaluation
 ```
 
 ## Development
@@ -112,22 +111,25 @@ uv sync
 uv run pytest
 
 # Code formatting
-uv run black src/ tests/
+uv run black app/ tests/
 
 # Import sorting
-uv run isort src/ tests/
+uv run isort app/ tests/
 
 # Linting
-uv run flake8 src/ tests/
+uv run flake8 app/ tests/
 
 # Type checking
-uv run mypy src/
+uv run mypy app/
 
 # Run all checks
 uv run pre-commit run --all-files
 
 # Install pre-commit hooks
 uv run pre-commit install
+
+# Start FastAPI server
+uv run uvicorn app.api:app --reload
 ```
 
 ### Dependency Management
@@ -154,26 +156,27 @@ uv pip freeze > requirements.txt
 ```
 sales-analysis/
 ├── pyproject.toml          # Modern Python project configuration
-├── uv.toml                 # UV workspace configuration
 ├── uv.lock                 # Lock file for reproducible builds
 ├── README.md               # This file
 ├── .gitignore              # Git ignore patterns
 ├── .pre-commit-config.yaml # Pre-commit hooks
+├── app/                    # FastAPI application
+│   └── api.py              # Prediction API endpoint
 ├── data/
 │   ├── raw/                # Raw data files
 │   └── processed/          # Processed data files
+├── models/                 # Trained ML models
+│   ├── xgboost/           # XGBoost model files
+│   ├── nn/                # Neural network model files
+│   └── meta/              # Meta model files
 ├── notebooks/              # Jupyter notebooks
-│   ├── EDA.ipynb
 │   ├── data_preprocessing.ipynb
-│   └── data_analysis.ipynb
-├── src/                    # Source code
-│   ├── __init__.py
-│   ├── main.py            # CLI entry point
-│   └── utils.py           # Utility functions
-├── tests/                 # Test files
-│   ├── conftest.py
-│   ├── test_main.py
-│   └── test_utils.py
+│   ├── feature_engineering.ipynb
+│   ├── text_processing.ipynb
+│   ├── model_training.ipynb
+│   └── ensemble_and_evaluation.ipynb
+├── docs/                   # Documentation
+│   └── uv-best-practices.md
 └── scripts/               # Development scripts
     ├── setup-dev.ps1      # Windows setup script
     └── setup-dev.sh       # Unix setup script
