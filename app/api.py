@@ -83,6 +83,17 @@ async def home():
 
                     let result = await response.json();
                     
+                    // Check if product was not found
+                    if (result.error && result.error === "Product not found") {
+                        document.getElementById('output').innerHTML = `
+                            <div class="result fail">
+                                <div class="result-heading">Product Not Found</div>
+                                <div class="result-item">${result.message}</div>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
                     let resultClass = result.prediction === "Success" ? "success" : "fail";
                     let probabilityPercent = (result.success_probability * 100).toFixed(1);
                     
@@ -140,7 +151,11 @@ def predict(input_data: ProductInput):
         product_row = lookup_df[lookup_df['product_name'].str.lower() == input_data.product_name.lower()]
 
         if product_row.empty:
-            raise HTTPException(status_code=404, detail="Product not found")
+            return {
+                "error": "Product not found",
+                "product_name": input_data.product_name,
+                "message": f"The product '{input_data.product_name}' was not found in our database."
+            }
         
         category = safe_get_value(product_row, 'category', "Clothing")
         price = safe_get_value(product_row, 'price', 299.0)
