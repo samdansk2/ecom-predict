@@ -370,7 +370,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ------------------- Data Loading and Visualization Functions -------------------
 @st.cache_data
 def load_data():
     """Load the processed dataset for visualizations"""
@@ -389,7 +388,6 @@ def load_data():
 
 def create_category_distribution_chart(df):
     """Create category distribution pie chart"""
-    # Extract category information from one-hot encoded columns
     category_columns = [col for col in df.columns if col.startswith('category_')]
     category_data = []
     
@@ -455,17 +453,12 @@ def create_success_rate_chart(df):
 
 def create_price_vs_success_scatter(df):
     """Create price vs success probability scatter plot"""
-    # Sample data for better visualization
     sample_df = df.sample(min(500, len(df)))
     
-    # Normalize review_count to positive values for size parameter
-    # Since review_count might be standardized (can have negative values),
-    # we need to shift and scale it to positive values
     sample_df = sample_df.copy()
     if 'review_count' in sample_df.columns:
         min_review = sample_df['review_count'].min()
         if min_review < 0:
-            # Shift to make all values positive, then scale to reasonable size range (5-50)
             sample_df['review_count_size'] = (sample_df['review_count'] - min_review) + 5
             sample_df['review_count_size'] = sample_df['review_count_size'] * (45 / sample_df['review_count_size'].max())
         else:
@@ -499,7 +492,6 @@ def create_price_vs_success_scatter(df):
 
 def create_review_analysis_chart(df):
     """Create review score vs success rate analysis"""
-    # Create bins for review scores
     df['review_score_bin'] = pd.cut(df['review_score'], bins=5, labels=['Very Low', 'Low', 'Medium', 'High', 'Very High'])
     
     review_success = df.groupby('review_score_bin')['success'].mean().reset_index()
@@ -526,7 +518,6 @@ def create_review_analysis_chart(df):
     
     return fig
 
-# ------------------- Main Dashboard -------------------
 st.markdown("""
     <h1 style='text-align: center; color: #ffffff; font-size: 3rem; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);'>
         🛒 Product Success Prediction Dashboard
@@ -536,10 +527,8 @@ st.markdown("""
     </p>
 """, unsafe_allow_html=True)
 
-# Load data for visualizations
 df = load_data()
 
-# Create two columns for main layout
 col1, col2 = st.columns([1, 1])
 
 with col1:
@@ -551,16 +540,14 @@ with col1:
     
     st.write("")  # Add some space
     
-    # Input box
     product_name = st.text_input("Product Name", placeholder="e.g. Sports Shoes, Laptop, Skincare Set")
 
-    # Predict button
     if st.button("🔮 Predict Success", type="primary"):
         if not product_name.strip():
             st.warning("⚠️ Please enter a valid product name.")
         else:
             try:
-                # Call your FastAPI endpoint
+                # Call FastAPI endpoint
                 response = requests.post("http://localhost:8000/predict", json={"product_name": product_name})
                 
                 if response.status_code == 200:
@@ -569,7 +556,6 @@ with col1:
                     if "error" in result:
                         st.error(f"❌ {result['message']}")
                     else:
-                        # Display results
                         prob = result["success_probability"] * 100
                         label = result["prediction"]
 
@@ -591,7 +577,6 @@ with col1:
                         st.markdown("---")
                         st.subheader("📊 Prediction Details")
                         
-                        # Create metrics in a nice layout
                         metric_col1, metric_col2 = st.columns(2)
                         with metric_col1:
                             st.metric(label="🎯 Success Probability", value=f"{prob:.1f}%")
@@ -613,7 +598,7 @@ with col2:
         </div>
     """, unsafe_allow_html=True)
     
-    st.write("")  # Add some space
+    st.write("") 
     
     if df is not None:
         total_products = len(df)
@@ -627,7 +612,6 @@ with col2:
     else:
         st.info("📊 Analytics data not available")
 
-# ------------------- Visualizations Section -------------------
 if df is not None:
     st.markdown("---")
     st.markdown("""
@@ -636,7 +620,6 @@ if df is not None:
         </h2>
     """, unsafe_allow_html=True)
     
-    # Create tabs for different visualizations
     tab1, tab2, tab3, tab4 = st.tabs(["📊 Categories", "🎯 Success Rates", "💰 Price Analysis", "⭐ Reviews"])
     
     with tab1:
@@ -667,7 +650,6 @@ if df is not None:
         st.markdown("**Insight:** See how customer reviews impact product success rates.")
         st.markdown('</div>', unsafe_allow_html=True)
 
-# ------------------- Footer -------------------
 st.markdown("---")
 st.markdown("""
 <div style='text-align: center; color: #ffffff; padding: 2rem; background: rgba(72, 199, 142, 0.15); border-radius: 10px; margin-top: 2rem; backdrop-filter: blur(10px); border: 1px solid rgba(72, 199, 142, 0.3);'>

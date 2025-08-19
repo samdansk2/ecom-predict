@@ -8,24 +8,20 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 import os
 
-# ------------------- Load Models -------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 xgb_model = joblib.load(os.path.join(BASE_DIR, "../models/xgboost/xgb_model.pkl"))
 mlp_model = joblib.load(os.path.join(BASE_DIR, "../models/nn/mlp_model.pkl"))
 meta_model = joblib.load(os.path.join(BASE_DIR, "../models/meta/meta_model.pkl"))
 
-# ------------------- Load Dataset -------------------
 lookup_path = os.path.join(BASE_DIR, "../data/raw/ecommerce_sales.csv")
 lookup_df = pd.read_csv(lookup_path)
 
-# ------------------- Transformer Setup -------------------
-model_name = "distilbert-base-uncased"  # ensure same as training
+model_name = "distilbert-base-uncased"  
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 bert_model = AutoModel.from_pretrained(model_name)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 bert_model.to(device)
 
-# ------------------- FastAPI App -------------------
 app = FastAPI(title="Product Success Prediction API")
 
 # ------------------- Home Page -------------------
@@ -115,11 +111,9 @@ async def home():
     </html>
     """
 
-# ------------------- Input Schema -------------------
 class ProductInput(BaseModel):
     product_name: str
 
-# ------------------- Helper Functions -------------------
 def get_embedding(text):
     inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=16)
     inputs = {k: v.to(device) for k, v in inputs.items()}
@@ -132,7 +126,7 @@ def safe_get_value(row, col, default):
 
 def standardize_features(price, review_score, review_count, total_sales, avg_sales_per_month):
     """Apply the same standardization used during training"""
-    # These are the exact parameters from the training scaler
+    # parameters from the training scaler
     means = np.array([2.47677130e+02, 3.02760000e+00, 5.26506000e+02, 6.01991200e+03, 5.01659333e+02])
     stds = np.array([144.53566113, 1.17065718, 282.12876132, 991.77752559, 82.64812713])
     
@@ -141,7 +135,6 @@ def standardize_features(price, review_score, review_count, total_sales, avg_sal
     
     return standardized
 
-# ------------------- Prediction Endpoint -------------------
 @app.post("/predict")
 def predict(input_data: ProductInput):
     try:
@@ -168,7 +161,6 @@ def predict(input_data: ProductInput):
         else:
             monthly_sales = np.array([40] * 12)
 
-        # Derived features
         total_sales = monthly_sales.sum()
         avg_sales = monthly_sales.mean()
         sales_variability = monthly_sales.std()
@@ -176,12 +168,9 @@ def predict(input_data: ProductInput):
         price_bucket_low = 1 if price <= 200 else 0
         price_bucket_high = 1 if price >= 500 else 0
 
-        # Standardize the numeric features that were normalized during training
         standardized_features = standardize_features(price, review_score, review_count, total_sales, avg_sales)
         std_price, std_review_score, std_review_count, std_total_sales, std_avg_sales = standardized_features
 
-        # Category encoding - Match training format (one-hot with boolean columns)
-        # Based on the processed data: category_Clothing, category_Electronics, category_Health, category_Home & Kitchen, category_Sports, category_Toys
         category_features = {
             "Clothing": [1, 0, 0, 0, 0, 0],
             "Electronics": [0, 1, 0, 0, 0, 0], 
@@ -189,22 +178,19 @@ def predict(input_data: ProductInput):
             "Home & Kitchen": [0, 0, 0, 1, 0, 0],
             "Sports": [0, 0, 0, 0, 1, 0],
             "Toys": [0, 0, 0, 0, 0, 1],
-            "Books": [0, 0, 0, 0, 0, 0]  # Books category doesn't appear in training data, so all zeros
+            "Books": [0, 0, 0, 0, 0, 0]  
         }
-        cat_vector = category_features.get(category, [0, 0, 0, 0, 0, 0])  # Default to all zeros if unknown category
+        cat_vector = category_features.get(category, [0, 0, 0, 0, 0, 0]) 
 
-        # Embedding
         emb = get_embedding(input_data.product_name)
 
-        # Combine features - Use standardized versions for the numeric features that were normalized
         numeric_features = [
             std_price, std_review_score, std_review_count, std_total_sales, std_avg_sales,  # Standardized features
             sales_variability, sales_trend, price_bucket_low, price_bucket_high  # Non-standardized features
         ] + cat_vector
         combined_features = np.concatenate([numeric_features, emb]).reshape(1, -1)
 
-        # Ensure correct shape for model
-        required_features = 796  # based on training
+        required_features = 796  
         current_features = combined_features.shape[1]
         if current_features < required_features:
             padding = np.zeros((1, required_features - current_features))
@@ -212,7 +198,6 @@ def predict(input_data: ProductInput):
         elif current_features > required_features:
             combined_features = combined_features[:, :required_features]
 
-        # Model predictions
         xgb_pred = xgb_model.predict_proba(combined_features)[:, 1]
         mlp_pred = mlp_model.predict_proba(combined_features)[:, 1]
         stack_input = np.column_stack((xgb_pred, mlp_pred))
