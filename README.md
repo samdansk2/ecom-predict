@@ -1,15 +1,20 @@
-# Sales Analysis
+# E-Commerce Sales Predictor
 
-This project involves analyzing sales data to extract insights and trends using Data Science Algorithms implemented with Machine learning. The analysis includes data cleaning, visualization, statistical modeling, and machine learning to understand sales performance over time.
+An advanced e-commerce sales prediction system that leverages machine learning to forecast sales trends, analyze customer behavior, and provide actionable insights. The system combines traditional ML models with deep learning approaches and includes a comprehensive Streamlit dashboard for real-time analysis and predictions.
 
 ## Features
 
-- 🚀 **Fast Development**: Uses UV for lightning-fast package management
-- 📊 **Comprehensive Analysis**: EDA, preprocessing, and modeling workflows
-- 🔧 **Modern Python**: Type hints, proper project structure, and best practices
-- 🧪 **Testing**: Comprehensive test suite with pytest
-- 📝 **Documentation**: Well-documented code and API
-- 🎯 **CLI Interface**: Easy-to-use command-line interface
+### Core Capabilities
+- 🚀 **Advanced ML Pipeline**: Multi-model ensemble with XGBoost, LightGBM, and Neural Networks
+- 📊 **Interactive Dashboard**: Real-time Streamlit interface for sales analysis and predictions
+- 🤖 **Ensemble Learning**: Meta-learning approach combining multiple models for superior accuracy
+- 📈 **Time Series Analysis**: Sophisticated temporal feature engineering for sales forecasting
+- 🔍 **Customer Segmentation**: RFM analysis and clustering for customer insights
+- 🎯 **Product Analytics**: Category performance and product recommendation features
+- 📱 **API Service**: FastAPI endpoints for programmatic access to predictions
+- 🧪 **A/B Testing**: Statistical testing framework for marketing experiments
+- 📉 **Anomaly Detection**: Identify unusual sales patterns and outliers
+- 🌍 **Geographic Analysis**: Regional sales patterns and market insights
 
 ## Quick Start
 
@@ -31,8 +36,8 @@ This project involves analyzing sales data to extract insights and trends using 
 
 2. **Clone and setup the project**:
    ```bash
-   git clone https://github.com/samdansk2/sales-analysis.git
-   cd sales-analysis
+   git clone https://github.com/samdansk2/ecom-predict.git
+   cd ecom-predict
    
    # Run the setup script
    # On Windows:
@@ -48,21 +53,24 @@ This project involves analyzing sales data to extract insights and trends using 
    # Commands will be run with: uv run <command>
    ```
 
-### Installation with pip (Alternative)
+## Usage
+
+### Streamlit Dashboard (Primary Interface)
 
 ```bash
-git clone https://github.com/samdansk2/sales-analysis.git
-cd sales-analysis
+# Start the interactive dashboard
+streamlit run dashboard/streamlit_app.py
 
-# Create virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install the project
-pip install -e ".[dev]"
+# Access the dashboard at http://localhost:8501
 ```
 
-## Usage
+The dashboard provides:
+- **Real-time Predictions**: Upload data or use sample data for instant predictions
+- **Sales Analytics**: Interactive charts for sales trends, patterns, and forecasts
+- **Customer Insights**: RFM segmentation and customer behavior analysis
+- **Product Performance**: Category analysis and product recommendations
+- **Model Comparison**: Compare predictions across different models
+- **A/B Test Results**: Statistical analysis of marketing experiments
 
 ### FastAPI Application
 
@@ -74,130 +82,56 @@ uv run uvicorn app.api:app --reload
 # Documentation at http://localhost:8000/docs
 ```
 
-### Jupyter Notebooks
+API Endpoints:
+- `POST /predict`: Single prediction endpoint
+- `POST /batch_predict`: Batch predictions for multiple samples
+- `GET /model_info`: Get model performance metrics
+- `POST /retrain`: Trigger model retraining with new data
 
-```bash
-# Start Jupyter Lab
-uv run jupyter lab
-
-# The notebooks/ directory contains:
-# - data_preprocessing.ipynb: Data cleaning and preparation
-# - feature_engineering.ipynb: Feature creation and transformation
-# - text_processing.ipynb: NLP text processing with embeddings
-# - model_training.ipynb: ML model training and selection
-# - ensemble_and_evaluation.ipynb: Model ensemble and evaluation
-```
-
-## Development
-
-### UV Best Practices Implemented
-
-This project follows UV best practices for modern Python development:
-
-1. **pyproject.toml**: Modern project configuration with proper dependencies
-2. **Lock file management**: Reproducible installations with `uv.lock`
-3. **Virtual environment**: Automatic virtual environment management
-4. **Development dependencies**: Separated dev, ML, and NLP dependencies
-5. **Scripts and tasks**: Defined common development tasks
-6. **Fast installs**: Lightning-fast dependency resolution and installation
-
-### Development Commands
-
-```bash
-# Install dependencies
-uv sync
-
-# Run tests
-uv run pytest
-
-# Code formatting
-uv run black app/ tests/
-
-# Import sorting
-uv run isort app/ tests/
-
-# Linting
-uv run flake8 app/ tests/
-
-# Type checking
-uv run mypy app/
-
-# Run all checks
-uv run pre-commit run --all-files
-
-# Install pre-commit hooks
-uv run pre-commit install
-
-# Start FastAPI server
-uv run uvicorn app.api:app --reload
-```
-
-### Dependency Management
-
-```bash
-# Add a new dependency
-uv add pandas numpy
-
-# Add a development dependency
-uv add --dev pytest black
-
-# Add optional dependencies
-uv add --optional ml xgboost lightgbm
-
-# Update dependencies
-uv sync --upgrade
-
-# Generate requirements.txt (if needed)
-uv pip freeze > requirements.txt
-```
 
 ## Project Structure
 
 ```
-sales-analysis/
-├── pyproject.toml          # Modern Python project configuration
-├── uv.lock                 # Lock file for reproducible builds
-├── README.md               # This file
-├── .gitignore              # Git ignore patterns
-├── .pre-commit-config.yaml # Pre-commit hooks
-├── app/                    # FastAPI application
-│   └── api.py              # Prediction API endpoint
+ecom-predict/
+├── .github/                # GitHub configuration
+│   └── workflows/          # CI/CD workflows
+├── app/                    # Application code
+│   └── api.py             # FastAPI prediction endpoints
+├── dashboard/              # Dashboard interface
+│   └── streamlit_app.py   # Streamlit dashboard
 ├── data/
-│   ├── raw/                # Raw data files
-│   └── processed/          # Processed data files
+│   ├── raw/               # Raw data files
+│   │   └── ecommerce_sales.csv
+│   └── processed/         # Processed data files
+│       ├── ecommerce_sales_preprocessed.csv
+│       ├── ecommerce_sales_featured.csv
+│       └── ecommerce_sales_with_embeddings.csv
+├── docs/                   # Documentation
+│   └── uv-best-practices.md
 ├── models/                 # Trained ML models
 │   ├── xgboost/           # XGBoost model files
+│   │   └── xgb_model.pkl
 │   ├── nn/                # Neural network model files
-│   └── meta/              # Meta model files
+│   │   └── mlp_model.pkl
+│   └── meta/              # Meta-ensemble model
+│       └── meta_model.pkl
 ├── notebooks/              # Jupyter notebooks
 │   ├── data_preprocessing.ipynb
 │   ├── feature_engineering.ipynb
 │   ├── text_processing.ipynb
 │   ├── model_training.ipynb
-│   └── ensemble_and_evaluation.ipynb
-├── docs/                   # Documentation
-│   └── uv-best-practices.md
-└── scripts/               # Development scripts
-    ├── setup-dev.ps1      # Windows setup script
-    └── setup-dev.sh       # Unix setup script
-```
-
-## Optional Dependencies
-
-Install additional dependencies based on your needs:
-
-```bash
-# Machine Learning dependencies
-uv sync --extra ml
-
-# NLP dependencies  
-uv sync --extra nlp
-
-# Documentation dependencies
-uv sync --extra docs
-
-# All optional dependencies
-uv sync --all-extras
+│   ├── ensemble_and_evaluation.ipynb
+│   └── least_selling_products_analysis.ipynb
+├── results/                # Analysis results
+│   ├── least_selling_products_bar_chart.html
+│   └── price_vs_selling_percentage_scatter.html
+├── scripts/               # Development scripts
+│   ├── setup-dev.ps1     # Windows setup script
+│   └── setup-dev.sh      # Unix setup script
+├── .gitignore            # Git ignore patterns
+├── README.md             # This file
+├── pyproject.toml        # Python project configuration
+└── requirements.txt      # Python dependencies
 ```
 
 ## Contributing
@@ -210,12 +144,13 @@ uv sync --all-extras
 6. Push to the branch (`git push origin feature/amazing-feature`)
 7. Open a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Acknowledgments
 
 - Built with [UV](https://github.com/astral-sh/uv) for fast Python package management
 - Uses modern Python packaging standards with pyproject.toml
-- Implements best practices for data science project structure
+- Implements best practices for ML project structure
+- Inspired by real-world e-commerce challenges
+
+## Support
+
+For issues, questions, or suggestions, please open an issue on GitHub or contact the maintainers.
