@@ -119,7 +119,7 @@ ecom-predict/
 │   ├── data_preprocessing.ipynb
 │   ├── feature_engineering.ipynb
 │   ├── text_processing.ipynb
-│   ├── model_training.ipynb
+│   ├── model_training_and_predictions.ipynb
 │   ├── ensemble_and_evaluation.ipynb
 │   └── least_selling_products_analysis.ipynb
 ├── results/                # Analysis results
