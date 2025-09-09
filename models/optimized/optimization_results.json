@@ -1,0 +1,56 @@
+{
+    "timestamp": "2025-09-09T11:31:11.521242",
+    "cv_strategy": "5-fold Stratified K-Fold",
+    "xgboost": {
+        "best_params": {
+            "colsample_bytree": 0.9314950036607718,
+            "gamma": 0.17837666334679464,
+            "learning_rate": 0.09147100780934041,
+            "max_depth": 6,
+            "min_child_weight": 5,
+            "n_estimators": 140,
+            "reg_alpha": 0.2962735057040824,
+            "reg_lambda": 0.330533878126005,
+            "subsample": 0.6062545626964776
+        },
+        "cv_score": 0.999984375,
+        "test_performance": {
+            "accuracy": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0
+        }
+    },
+    "neural_network": {
+        "best_params": {
+            "activation": "relu",
+            "alpha": 0.002379351625419417,
+            "hidden_layer_sizes": [
+                256,
+                128,
+                64
+            ],
+            "learning_rate": "constant",
+            "learning_rate_init": 0.009180147659224931,
+            "max_iter": 432,
+            "solver": "adam"
+        },
+        "cv_score": 0.9029062499999998,
+        "test_performance": {
+            "accuracy": 0.625,
+            "f1_score": 0.6636771300448431,
+            "roc_auc": 0.725
+        }
+    },
+    "ensemble": {
+        "cv_score": 1.0,
+        "test_performance": {
+            "accuracy": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0
+        }
+    },
+    "improvements": {
+        "xgboost_roc_auc_improvement": "+0.00%",
+        "neural_network_roc_auc_improvement": "-14.91%"
+    }
+}

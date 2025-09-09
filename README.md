@@ -55,17 +55,31 @@ An advanced e-commerce sales prediction system that leverages machine learning t
 
 ## Usage
 
-### Streamlit Dashboard (Primary Interface)
+### Running the Complete System
 
+**Important**: The Streamlit dashboard requires the FastAPI server to be running for prediction functionality.
+
+#### Step 1: Start the FastAPI Server (Required)
 ```bash
-# Start the interactive dashboard
+# Start the prediction API server first
+uv run uvicorn app.api:app --reload
+
+# The API will be available at http://localhost:8000
+# Keep this terminal window open
+```
+
+#### Step 2: Start the Streamlit Dashboard
+```bash
+# In a new terminal window, start the dashboard
 streamlit run dashboard/streamlit_app.py
 
 # Access the dashboard at http://localhost:8501
 ```
 
+### Streamlit Dashboard Features
+
 The dashboard provides:
-- **Real-time Predictions**: Upload data or use sample data for instant predictions
+- **Real-time Predictions**: Upload data or use sample data for instant predictions (requires FastAPI server)
 - **Sales Analytics**: Interactive charts for sales trends, patterns, and forecasts
 - **Customer Insights**: RFM segmentation and customer behavior analysis
 - **Product Performance**: Category analysis and product recommendations

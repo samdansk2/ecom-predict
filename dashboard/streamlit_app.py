@@ -494,7 +494,7 @@ def create_review_analysis_chart(df):
     """Create review score vs success rate analysis"""
     df['review_score_bin'] = pd.cut(df['review_score'], bins=5, labels=['Very Low', 'Low', 'Medium', 'High', 'Very High'])
     
-    review_success = df.groupby('review_score_bin')['success'].mean().reset_index()
+    review_success = df.groupby('review_score_bin', observed=False)['success'].mean().reset_index()
     review_success['success_rate'] = review_success['success'] * 100
     
     fig = px.bar(review_success,

@@ -9,9 +9,10 @@ from pydantic import BaseModel
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-xgb_model = joblib.load(os.path.join(BASE_DIR, "../models/xgboost/xgb_model.pkl"))
-mlp_model = joblib.load(os.path.join(BASE_DIR, "../models/nn/mlp_model.pkl"))
-meta_model = joblib.load(os.path.join(BASE_DIR, "../models/meta/meta_model.pkl"))
+# Load optimized models with cross-validation and hyperparameter tuning
+xgb_model = joblib.load(os.path.join(BASE_DIR, "../models/optimized/xgboost_optimized.pkl"))
+mlp_model = joblib.load(os.path.join(BASE_DIR, "../models/optimized/neural_network_optimized.pkl"))
+meta_model = joblib.load(os.path.join(BASE_DIR, "../models/optimized/meta_model_optimized.pkl"))
 
 lookup_path = os.path.join(BASE_DIR, "../data/raw/ecommerce_sales.csv")
 lookup_df = pd.read_csv(lookup_path)
@@ -31,7 +32,7 @@ async def home():
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Product Price Prediction</title>
+        <title>Product Success Prediction</title>
         <style>
             body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
             h1 { color: #333; }
@@ -48,7 +49,7 @@ async def home():
         </style>
     </head>
     <body>
-        <h1>Product Price Prediction</h1>
+        <h1>Product Success Prediction</h1>
         
         <label>Product Name</label>
         <input id="product_name" type="text" placeholder="e.g. Sports Shoes">

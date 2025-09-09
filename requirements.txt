@@ -1,3 +1,6 @@
+datetime
+joblib
+fastapi
 pandas
 numpy
 scikit-learn
@@ -5,6 +8,8 @@ xgboost
 lightgbm
 matplotlib
 seaborn
+scipy
+streamlit
 plotly
 transformers
 torch
@@ -13,3 +18,4 @@ nltk
 tqdm
 pyyaml
 jupyter
+uvicorn

@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "dsa-python-sales-analysis"
+name = "ecom-predict"
 version = "0.1.0"
-description = "Sales data analysis project with data science algorithms implemented in Python"
+description = "E-commerce product success prediction using machine learning"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
@@ -72,9 +72,9 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/samdansk2/DSA_in_Python"
-Repository = "https://github.com/samdansk2/DSA_in_Python"
-Issues = "https://github.com/samdansk2/DSA_in_Python/issues"
+Homepage = "https://github.com/samdansk2/ecom-predict"
+Repository = "https://github.com/samdansk2/ecom-predict"
+Issues = "https://github.com/samdansk2/ecom-predict/issues"
 
 # Build configuration for hatchling
 [tool.hatch.build.targets.wheel]
