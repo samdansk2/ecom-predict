@@ -547,8 +547,12 @@ with col1:
             st.warning("⚠️ Please enter a valid product name.")
         else:
             try:
+                # Get FastAPI URL from environment variable (for Render deployment)
+                # Default to localhost for local development
+                api_url = os.getenv("FASTAPI_URL", "http://localhost:8000")
+
                 # Call FastAPI endpoint
-                response = requests.post("http://localhost:8000/predict", json={"product_name": product_name})
+                response = requests.post(f"{api_url}/predict", json={"product_name": product_name})
                 
                 if response.status_code == 200:
                     result = response.json()
