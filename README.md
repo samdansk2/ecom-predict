@@ -11,6 +11,12 @@ An advanced e-commerce sales prediction system that leverages machine learning t
 - 🔍 **Customer Segmentation**: RFM analysis and clustering for customer insights
 - 📱 **API Service**: FastAPI endpoints for programmatic access to predictions
 
+## 📈 Live Dashboard
+
+Explore the interactive Tableau dashboard for comprehensive sales analytics and insights:
+
+**[<u>View Live Tableau Dashboard</u>](https://public.tableau.com/app/profile/samdan.shaik/viz/Ecom-predict/Dashboard1)**
+
 ## Quick Start
 
 ### Prerequisites
