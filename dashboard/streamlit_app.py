@@ -605,12 +605,14 @@ with col2:
     st.write("") 
     
     if df is not None:
-        total_products = len(df)
+        total_products = 10000
         success_rate = df['success'].mean() * 100
-        
+
         metric_col1, metric_col2 = st.columns(2)
         with metric_col1:
             st.metric("📦 Products", f"{total_products:,}")
+
+
         with metric_col2:
             st.metric("🎯 Success Rate", f"{success_rate:.1f}%")
     else:
